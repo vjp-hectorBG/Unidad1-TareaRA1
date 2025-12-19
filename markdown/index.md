@@ -6,7 +6,7 @@ En esta tarea obligatoria trabajo sobre un código de python que simula el compo
 2. Una ejeución en un entorno seguro con firejail.
 3. Una serie de pruebas unitariarias para comrpobar y corregir unos fallos de ejecucción que están presentes en el código.
 
-También en esta documentación hay una apartado que es una reflexión personal mía sobre la seguridad en sistemas operativos.
+También en esta documentación hay una apartado que es una reflexión personal mía sobre la seguridad en sistemas operativos y un archivo **.ipynb** con los dos ficheros de la aplicación comentados.
 
 ---
 

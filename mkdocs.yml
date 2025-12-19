@@ -1,7 +1,7 @@
 site_name: Práctica Unidad 1 PPS - HectorBG
 nav:
   - Indice: index.md
-  - Ejecución y depuración: ejecucion-y-depuracion.md
+  - Ejecución y depuración: ejecuccion-y-depuracion.md
   - Pruebas: pruebas.md
   - Sandbox: sandbox.md
   - Reflexión personal: reflexion.md
