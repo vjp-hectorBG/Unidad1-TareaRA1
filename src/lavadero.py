@@ -1,5 +1,8 @@
 # lavadero.py
 
+from antlr4 import IllegalStateException
+
+
 class Lavadero:
     """
     Simula el estado y las operaciones de un túnel de lavado de coches.
@@ -64,11 +67,11 @@ class Lavadero:
         """
         Inicia un nuevo ciclo de lavado, validando reglas de negocio.
         
-        :raises RuntimeError: Si el lavadero está ocupado (Requisito 3).
+        :raises IllegalStateException: Si el lavadero está ocupado (Requisito 3).
         :raises ValueError: Si se intenta encerar sin secado a mano (Requisito 2).
         """
         if self.__ocupado:
-            raise RuntimeError("No se puede iniciar un nuevo lavado mientras el lavadero está ocupado")
+            raise IllegalStateException("No se puede iniciar un nuevo lavado mientras el lavadero está ocupado")
         
         if not secado_a_mano and encerado:
             raise ValueError("No se puede encerar el coche sin secado a mano")
@@ -83,7 +86,7 @@ class Lavadero:
     def _cobrar(self):
         """
         Calcula y añade los ingresos según las opciones seleccionadas (Requisitos 4-8).
-        Precio base: 5.00€ (Implícito, 5.00€ de base + 1.50€ de prelavado + 1.00€ de secado + 1.20€ de encerado = 8.70€)
+        Precio base: 5.00€ (Implícito, 5.00€ de base + 1.50€ de prelavado + 1.00€ de secado + 1.00€ de encerado = 8.50€)
         """
         coste_lavado = 5.00
         
@@ -91,10 +94,10 @@ class Lavadero:
             coste_lavado += 1.50 
         
         if self.__secado_a_mano:
-            coste_lavado += 1.20 
+            coste_lavado += 1.00
             
         if self.__encerado:
-            coste_lavado += 1.00 
+            coste_lavado += 1.20 
             
         self.__ingresos += coste_lavado
         return coste_lavado
@@ -126,17 +129,19 @@ class Lavadero:
         
         elif self.__fase == self.FASE_RODILLOS:
             if self.__secado_a_mano:
-                self.__fase = self.FASE_SECADO_AUTOMATICO 
+                self.__fase = self.FASE_SECADO_MANO 
 
             else:
-                self.__fase = self.FASE_SECADO_MANO
+                self.__fase = self.FASE_SECADO_AUTOMATICO
         
         elif self.__fase == self.FASE_SECADO_AUTOMATICO:
             self.terminar()
         
         elif self.__fase == self.FASE_SECADO_MANO:
-
-            self.terminar() 
+             if self.__encerado:
+                self.__fase = self.FASE_ENCERADO
+             else:
+                self.terminar() 
         
         elif self.__fase == self.FASE_ENCERADO:
             self.terminar() 
